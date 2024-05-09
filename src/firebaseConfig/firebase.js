@@ -6,12 +6,18 @@ import {getFirestore} from "@firebase/firestore";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyD8lSjoGXYBRo8HDm8fQtmJWT9FQrEVtHg",
-  authDomain: "cube-b5537.firebaseapp.com",
-  projectId: "cube-b5537",
-  storageBucket: "cube-b5537.appspot.com",
-  messagingSenderId: "746288096117",
-  appId: "1:746288096117:web:4a121eea0fc0e72fb5e93c"
+  apiKey: "AIzaSyC_cmk9IMXt_XKM9uSCLen1opKOwYkNY8Q",
+
+  authDomain: "clubreservas-716b9.firebaseapp.com",
+
+  projectId: "clubreservas-716b9",
+
+  storageBucket: "clubreservas-716b9.appspot.com",
+
+  messagingSenderId: "718834689226",
+
+  appId: "1:718834689226:web:2dadf58ae5a560c3e94033"
+
 };
 
 // Initialize Firebase
