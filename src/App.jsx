@@ -2,7 +2,7 @@ import {BrowserRouter,Routes,Route,Link} from "react-router-dom";
 import { Reservas} from "./components/Reservas";
 import { Socios } from "./components/Socios";
 import { Login } from "./components/Login";
-import { RegistrarReserva } from "./components/RegistrarReserva";
+//import { RegistrarReserva } from "./components/RegistrarReserva";
 
 
 export const App = () => {
@@ -29,7 +29,7 @@ return (
       <Route path="/socios/create" element="aca se Crean los registros"/>
       <Route path="/socios/edit/:id" element="aca se EDITAN los registros"/>
       <Route path="/reservas" element={<Reservas/>}/>
-      <Route path="/reservas/create" element={<RegistrarReserva/>}/>
+      <Route path="/reservas/create" element="aca se registran las Reservas"/>
       <Route path="/reservas/edit/:id" element="aca se EDITAN los registros"/>
     </Routes>
     </BrowserRouter>
