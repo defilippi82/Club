@@ -36,7 +36,7 @@ export const Socios = ()=>{
                 <div className="col">
                     <div className="d-gip gap-2">
                         
-                        <lINk to ="/create" className="btn btn-secundary mt-2 mb-2"> CREAR </lINk>
+                        <lINk to ="/socios/create" className="btn btn-secundary mt-2 mb-2"> CREAR </lINk>
 
                     </div>
                     <table className="table tavle-dark table-hover">
