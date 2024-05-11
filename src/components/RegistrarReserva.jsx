@@ -8,15 +8,51 @@ import withReactContent from 'sweetalert2-react-content';
 
 export const RegistrarReserva = () => {
   const [cancha, setCancha] = useState('');
-  const [fecha, setFecha] = useState(null);
+  const [fecha, setFecha] = useState('');
+  const [hora, setHora] = useState('');
   const [nombre, setNombre] = useState('');
 
   const reservasCollection = collection(db, 'reservas');
 
   const MySwal = withReactContent(Swal);
 
+  // Definir el rango horario permitido (de 8 am a 11 pm)
+  const horaInicio = 8;
+  const horaFin = 23;
+
+  // Función para generar los intervalos de tiempo
+  const generarIntervalos = () => {
+    const intervalos = [];
+    for (let hora = horaInicio; hora <= horaFin; hora++) {
+      for (let minuto = 0; minuto < 60; minuto += 30) {
+        const horaFormateada = `${hora.toString().padStart(2, '0')}:${minuto.toString().padStart(2, '0')}`;
+        intervalos.push(horaFormateada);
+      }
+    }
+    return intervalos;
+  };
+
+  const intervalos = generarIntervalos();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+     // Verificar disponibilidad de la cancha en la fecha y hora seleccionadas
+     const q = query(reservasCollection, 
+      where('cancha', '==', cancha),
+      where('fecha', '==', Timestamp.fromDate(new Date(`${fecha}T${hora}`)))
+    );
+    const querySnapshot = await getDocs(q);
+
+    if (!querySnapshot.empty) {
+      MySwal.fire({
+        title: 'Error',
+        text: 'Ya existe una reserva para esta cancha en la fecha y hora seleccionadas',
+        icon: 'error',
+        showConfirmButton: true,
+      });
+      return;
+    }
 
     
 
@@ -24,7 +60,7 @@ export const RegistrarReserva = () => {
       // Agregar nueva reserva a la colección 'reservas' en Firestore
       await addDoc(reservasCollection, {
         cancha,
-        fecha: Timestamp.fromDate(new Date(fecha)),
+        fecha: Timestamp.fromDate(new Date(`${fecha}T${hora}`)),
         nombre,
       });
 
@@ -39,6 +75,7 @@ export const RegistrarReserva = () => {
       // Resetear los campos del formulario
       setCancha('');
       setFecha(null);
+      setHora('');
       setNombre('');
     } catch (error) {
       // Mostrar alerta de error
@@ -50,7 +87,8 @@ export const RegistrarReserva = () => {
       });
     }
   };
-
+  
+  // value={fecha ? fecha.toISOString().split('T')[0] : ''} 
   return (
     <div className="container">
       <div>
@@ -79,10 +117,22 @@ export const RegistrarReserva = () => {
           <input
             type="date"
             id="fecha"
-            value={fecha ? fecha.toISOString().split('T')[0] : ''}
-            onChange={(e) => setFecha(new Date(e.target.value))}
+            value={fecha}
+
+            onChange={(e) => setFecha(e.target.value)}
             required
           />
+          <select
+            id="hora"
+            value={hora}
+            onChange={(e) => setHora(e.target.value)}
+            required
+          >
+            <option value="">Seleccionar hora</option>
+            {intervalos.map((intervalo, index) => (
+              <option key={index} value={intervalo}>{intervalo}</option>
+            ))}
+          </select>
         </div>
         <div>
         <label htmlFor="nombre">Nombre</label>
