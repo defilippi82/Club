@@ -39,8 +39,13 @@ export const EditarSocio = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await updateDoc(doc(db, "socios", id), socio);
+            await updateDoc(doc(db, "socios", id), socio)
+            .then(() => {
+                // Redirigir al usuario a otra página después de la alerta
+                window.location = '/socios';
+              });;
             console.log("Document successfully updated!");
+
             // Redirigir al usuario a la página de detalles de la socio
             // o a la lista de socios después de editar exitosamente.
         } catch (error) {
