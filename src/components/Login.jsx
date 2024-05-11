@@ -50,7 +50,7 @@ export const Login = () => {
               type="password"
               name="pass"
               id="pass"
-              placeholder="XXXXXXXX"
+              placeholder="********"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />

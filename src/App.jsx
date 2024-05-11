@@ -12,7 +12,7 @@ import {EditarSocio} from "./components/EditarSocio";
 export const App = () => {
  
   return (
-    <div className="App">
+    <div className="App container ">
     
     <BrowserRouter>
      <header>
