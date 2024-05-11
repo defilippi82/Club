@@ -4,7 +4,8 @@ import { Socios } from "./components/Socios";
 import { Login  } from "./components/Login";
 import {RegistrarReserva} from "./components/RegistrarReserva";
 import {RegistrarSocio} from "./components/RegistrarSocio";
-import {EditarReserva, EditarSocio} from "./components";
+import {EditarReserva } from "./components/EditarReserva";
+import {EditarSocio} from "./components/EditarSocio";
 
 
 
