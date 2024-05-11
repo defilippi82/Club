@@ -30,6 +30,24 @@ export const Reservas = ()=>{
         );
         }; getReservas()
     },[])
+    const confirmDelete = async (id) => {
+        try {
+            await deleteDoc(doc(db, "reservas", id));
+            setReservas(reservas.filter((reserva) => reserva.id !== id));
+            MySwal.fire(
+                "¡Borrado!",
+                "Tu reserva ha sido eliminada.",
+                "success"
+            );
+        } catch (error) {
+            MySwal.fire(
+                "Error",
+                "Ha ocurrido un error al intentar borrar la reserva.",
+                "error"
+            );
+        }
+    };
+     
 
     return (
         <>
