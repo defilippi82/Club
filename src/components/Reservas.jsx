@@ -40,7 +40,7 @@ export const Reservas = ()=>{
                 "success"
             );
         } catch (error) {
-            MySwal.fire(
+            mySwal.fire(
                 "Error",
                 "Ha ocurrido un error al intentar borrar la reserva.",
                 "error"

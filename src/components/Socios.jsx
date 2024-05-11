@@ -28,6 +28,23 @@ export const Socios = ()=>{
         );
         }; getSocios()
     },(socios))
+    const confirmDelete = async (id) => {
+        try {
+            await deleteDoc(doc(db, "socios", id));
+            setSocios(socios.filter((socio) => socio.id !== id));
+            mySwal.fire(
+                "¡Borrado!",
+                "Tu socio ha sido eliminada.",
+                "success"
+            );
+        } catch (error) {
+            MySwal.fire(
+                "Error",
+                "Ha ocurrido un error al intentar borrar la socio.",
+                "error"
+            );
+        }
+    };
 
     return (
         <>

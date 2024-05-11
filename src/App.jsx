@@ -4,6 +4,7 @@ import { Socios } from "./components/Socios";
 import { Login  } from "./components/Login";
 import {RegistrarReserva} from "./components/RegistrarReserva";
 import {RegistrarSocio} from "./components/RegistrarSocio";
+import {EditarReserva, EditarSocio} from "./components";
 
 
 
@@ -31,10 +32,10 @@ export const App = () => {
       <Route path="/" element={<Login/>}/>
       <Route path="/socios" element={<Socios/>}/>
       <Route path="/socios/create" element={<RegistrarSocio/>}/>
-      <Route path="/socios/edit/:id" element="aca se EDITAN los registros"/>
+      <Route path="/socios/edit/:id" element={<EditarSocio/>}/>
       <Route path="/reservas" element={<Reservas/>}/>
       <Route path="/reservas/create" element={<RegistrarReserva/>}/>
-      <Route path="/reservas/edit/:id" element="aca se EDITAN los registros"/>
+      <Route path="/reservas/edit/:id" element={<EditarReserva/>}/>
     </Routes>
     </BrowserRouter>
   </div>
