@@ -2,7 +2,7 @@ import {useState,useEffect} from "react";
 import {Link} from "react-router-dom";
 import {collection,getDocs,deleteDoc,doc} from "firebase/firestore";
 import {db} from "../firebaseConfig/firebase";
-import{ services } from "../services/Services";
+
 
 /* SWEET ALERT*/
 import Swal from "sweetalert2";
@@ -27,7 +27,7 @@ export const Socios = ()=>{
         }))
         );
         }; getSocios()
-    },(socios))
+    },[])
     const confirmDelete = async (id) => {
         try {
             await deleteDoc(doc(db, "socios", id));
@@ -38,7 +38,7 @@ export const Socios = ()=>{
                 "success"
             );
         } catch (error) {
-            MySwal.fire(
+            mySwal.fire(
                 "Error",
                 "Ha ocurrido un error al intentar borrar la socio.",
                 "error"

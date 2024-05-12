@@ -1,6 +1,6 @@
 
-import React, { useState } from 'react';
-import { collection, addDoc, Timestamp } from 'firebase/firestore';
+import React, { useState, useContext } from 'react';
+import { collection, addDoc, Timestamp,query,where, getDocs } from 'firebase/firestore';
 import { db } from '../firebaseConfig/firebase';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
@@ -10,7 +10,9 @@ export const RegistrarReserva = () => {
   const [cancha, setCancha] = useState('');
   const [fecha, setFecha] = useState('');
   const [hora, setHora] = useState('');
-  const [nombre, setNombre] = useState('');
+  const { user } = useContext(AuthContext);
+  const [nombre, setNombre] = useState(user ? user.nombre : '');
+  //const [nombre, setNombre] = useState('');
 
   const reservasCollection = collection(db, 'reservas');
 
@@ -70,6 +72,9 @@ export const RegistrarReserva = () => {
         text: 'La reserva ha sido registrada correctamente',
         icon: 'success',
         showConfirmButton: true,
+      }).then(() => {
+        // Redirigir al usuario a otra página después de la alerta
+        window.location = '/reservas';
       });
 
       // Resetear los campos del formulario

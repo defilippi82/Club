@@ -48,6 +48,9 @@ export const RegistrarSocio = () => {
         text: 'El socio ha sido registrado correctamente',
         icon: 'success',
         showConfirmButton: true,
+      }).then(() => {
+        // Redirigir al usuario a otra página después de la alerta
+        window.location = '/socios';
       });
 
       // Resetear los campos del formulario

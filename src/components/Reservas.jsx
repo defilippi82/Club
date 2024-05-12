@@ -25,7 +25,9 @@ export const Reservas = ()=>{
                 data.docs.map((doc)=>({
                     ...doc.data(),
                      id:doc.id, 
-                     fecha: doc.data().fecha.toDate().toLocaleString() 
+                     fecha: doc.data().fecha instanceof Timestamp
+            ? doc.data().fecha.toDate().toLocaleString()
+            : new Date(doc.data().fecha).toLocaleString()
         }))
         );
         }; getReservas()
@@ -34,11 +36,14 @@ export const Reservas = ()=>{
         try {
             await deleteDoc(doc(db, "reservas", id));
             setReservas(reservas.filter((reserva) => reserva.id !== id));
-            MySwal.fire(
+            mySwal.fire(
                 "¡Borrado!",
                 "Tu reserva ha sido eliminada.",
                 "success"
-            );
+            ).then(() => {
+        // Redirigir al usuario a otra página después de la alerta
+        window.location = '/reservas';
+      });
         } catch (error) {
             mySwal.fire(
                 "Error",

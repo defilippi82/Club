@@ -70,7 +70,10 @@ export const EditarReserva = () => {
         text: 'La reserva ha sido actualizada correctamente',
         icon: 'success',
         showConfirmButton: true,
-      });
+      }).then(() => {
+        // Redirigir al usuario a otra página después de la alerta
+        window.location = '/reservas';
+      });;
     } catch (error) {
       // Mostrar alerta de error
       MySwal.fire({

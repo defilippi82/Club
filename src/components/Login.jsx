@@ -1,4 +1,5 @@
-import {useState, useEffect} from "react";
+import { useState, useEffect } from 'react';
+
 
 /* SWEET ALERT*/
 import Swal from "sweetalert2";
@@ -9,10 +10,11 @@ const mySwal = whitReactContent(Swal)
 export const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+ 
 
   const login = (e) => {
       e.preventDefault();
-      
+
       // Ejemplo de alerta con SweetAlert2
       mySwal.fire({
         title: 'Ingreso exitoso',
