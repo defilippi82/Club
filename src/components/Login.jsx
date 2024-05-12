@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import {Link} from "react-router-dom";
 
 
 /* SWEET ALERT*/
@@ -34,9 +35,9 @@ export const Login = () => {
           <h1>Ingreso de Usuario</h1>
         </div>
         <form onSubmit={login}>
-          <div className="elem-group">
-            <label htmlFor="email">Correo electrónico</label>
-            <input
+          <div className="input-group mb-3">
+            <label className='input-group-text' htmlFor="email">Correo electrónico</label>
+            <input className='form-control'
               type="email"
               id="email"
               name="user"
@@ -47,9 +48,8 @@ export const Login = () => {
             />
           </div>
           <div>
-            <label htmlFor="password">Contraseña</label>
-            <input
-              type="password"
+            <label className='input-group-text' htmlFor="password">Contraseña</label>
+            <input className='form-control' type="password"
               name="pass"
               id="pass"
               placeholder="********"
@@ -62,9 +62,8 @@ export const Login = () => {
           </button>
         </form>
         <h3>¿No tienes cuenta?</h3>
-        <a href="/socios/create" className="btn btn-primary">
-          Registrarse
-        </a>
+        <Link to ="/socios/create" className="btn btn-primary"> Registrarse </Link>
+       
       </div>
     );
 

@@ -70,42 +70,45 @@ export const RegistrarSocio = () => {
 
   return (
     <div className="container">
-      <div>
-        <h1>Registrar Nuevo Socio</h1>
+       <div className='card text-bg-primary mb-3 shadow-lg" style="max-width: 18rem;"'>
+        <h1 className='card-header'>Registrar Nueva Socio</h1>
       </div>
       <form onSubmit={handleSubmit} className="card card-body shadow-lg">
         <div className="elem-group">
-          <label htmlFor="nombre">Nombre</label>
-          <input
+         <div className='form-floating mb-3'>
+
+          <input className='form-control'
             type="text"
             id="nombre"
             placeholder="Nombre completo"
             value={nombre}
             onChange={(e) => setNombre(e.target.value)}
-            required
-          />
+            required />
+          <label for="floatingInputDisabled" htmlFor="nombre">Nombre</label>
+         </div>
         </div>
         <div className="elem-group">
-          <label htmlFor="email">Correo electrónico</label>
-          <input
+        <div className='form-floating mb-3'>
+
+          <input className='form-control'
             type="email"
             id="email"
             placeholder="ejemplo@email.com"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            required
-          />
+            required/>
+          <label for="floatingInputDisabled" htmlFor="email">Correo electrónico</label>
+            </div>
         </div>
-        <div>
-          <label htmlFor="contrasena">Contraseña</label>
-          <input
+        <div className='form-floating mb-3'>
+          <input className='form-control'
             type="password"
             id="contrasena"
             placeholder="XXXXXXXX"
             value={contrasena}
             onChange={(e) => setContrasena(e.target.value)}
-            required
-          />
+            required />
+          <label for="floatingInputDisabled" htmlFor="contrasena">Contraseña</label>
         </div>
         <button type="submit" className="btn btn-primary">
           Registrar

@@ -10,9 +10,7 @@ export const RegistrarReserva = () => {
   const [cancha, setCancha] = useState('');
   const [fecha, setFecha] = useState('');
   const [hora, setHora] = useState('');
-  const { user } = useContext(AuthContext);
-  const [nombre, setNombre] = useState(user ? user.nombre : '');
-  //const [nombre, setNombre] = useState('');
+  const [nombre, setNombre] = useState('');
 
   const reservasCollection = collection(db, 'reservas');
 
@@ -96,18 +94,18 @@ export const RegistrarReserva = () => {
   // value={fecha ? fecha.toISOString().split('T')[0] : ''} 
   return (
     <div className="container">
-      <div>
-        <h1>Registrar Nueva Reserva</h1>
+      <div className='card text-bg-primary mb-3 shadow-lg" style="max-width: 18rem;"'>
+        <h1 className='card-header'>Registrar Nueva Reserva</h1>
       </div>
       <form onSubmit={handleSubmit} className="card card-body shadow-lg">
         <div className="elem-group">
-          <label htmlFor="cancha">Cancha</label>
-          <select
+          
+          <div className='form-floating mb-3'>
+            <select class="form-select"
             id="cancha"
             value={cancha}
             onChange={(e) => setCancha(e.target.value)}
-            required
-          >
+            required>
             <option value="">Seleccionar cancha</option>
             <option value="Tenis 1">Tenis 1</option>
             <option value="Tenis 2">Tenis 2</option>
@@ -116,32 +114,35 @@ export const RegistrarReserva = () => {
             <option value="Futbol 1">Fútbol 1</option>
             <option value="Futbol 2">Fútbol 2</option>
           </select>
+          <label for="floatingSelectDisabled" htmlFor="cancha">Cancha</label>
+            </div>
         </div>
         <div className="elem-group">
-          <label htmlFor="fecha">Fecha</label>
-          <input
+          <div className='form-floating mb-3'>
+          <input className='form-control'
             type="date"
             id="fecha"
             value={fecha}
-
+            class="form-control"
             onChange={(e) => setFecha(e.target.value)}
             required
-          />
-          <select
+            />
+          <label for="floatingInputDisabled" htmlFor="fecha">Fecha</label>
+            </div>
+          <select class="form-select"
             id="hora"
             value={hora}
             onChange={(e) => setHora(e.target.value)}
             required
-          >
+              >
             <option value="">Seleccionar hora</option>
             {intervalos.map((intervalo, index) => (
               <option key={index} value={intervalo}>{intervalo}</option>
             ))}
           </select>
         </div>
-        <div>
-        <label htmlFor="nombre">Nombre</label>
-          <input
+        <div className='form-floating mb-3'>
+          <input className='form-control'
             type="text"
             id="nombre"
             placeholder="Nombre completo"
@@ -149,6 +150,7 @@ export const RegistrarReserva = () => {
             onChange={(e) => setNombre(e.target.value)}
             required
           />
+        <label for="floatingInputDisabled" htmlFor="nombre">Nombre</label>
         </div>
         <button type="submit" className="btn btn-primary">
           Registrar

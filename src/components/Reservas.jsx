@@ -59,11 +59,11 @@ export const Reservas = ()=>{
         <div className="container">
             <div className="row">
                 <div className="col">
-                    <div className="d-gip gap-2">
-                    <Link to="/reservas/create" className="btn btn-secundary mt-2 mb-2">CREAR</Link>
+                    <div className="d-grid gap-2 col-6 mx-auto">
+                    <Link to="/reservas/create" className="btn btn-secondary mt-2 mb-2">Crear Reserva</Link>
                     
                     </div>
-                    <table className="table tavle-dark table-hover">
+                    <table className="table table-dark table-hover">
                         <thead>
                             <tr>
                                 <td>Socio</td>
