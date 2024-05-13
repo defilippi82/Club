@@ -1,52 +1,51 @@
-import { useState, useEffect } from 'react';
-import {Link} from "react-router-dom";
-
+import { useState,  useContext } from 'react';
+import {Link, useNavigate} from "react-router-dom";
+import {collection,getDocs,deleteDoc,doc,query,where} from "firebase/firestore";
+import {db} from "../firebaseConfig/firebase";
+import { UserContext } from './UserContext';
 
 /* SWEET ALERT*/
 import Swal from "sweetalert2";
 import whitReactContent from "sweetalert2-react-content";
 
-import {collection,getDocs,deleteDoc,doc,query,where} from "firebase/firestore";
-import {db} from "../firebaseConfig/firebase";
-
-
-const mySwal = whitReactContent(Swal)
+const MySwal = whitReactContent(Swal)
 
 export const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const { setUserData } = useContext(UserContext);
+  const navigate = useNavigate();
 
-
-
-  
   const login = async (e) => {
-    e.preventDefault();
-  
-    try {
-      // Query Firestore for the user's credentials
+      e.preventDefault();
+
       const q = query(collection(db, "socios"), where('email', '==', email));
       const querySnapshot = await getDocs(q);
+      
+    try {
+      // Query Firestore for the user's credentials
       if (!querySnapshot.empty) {
         querySnapshot.forEach((doc) => {
           const userData = doc.data();
           console.log(userData)
           if (userData.contrasena === password) {
+            setUserData(userData); // Actualizar userData en el contexto
+            localStorage.setItem('userData', JSON.stringify(userData));
             // Passwords match, login successful
-            mySwal
-              .fire({
+            MySwal.fire({
                 title: 'Ingreso exitoso',
-                text: `Bienvenido ${email} realice su reserva`,
+                text: `¡Bienvenido, ${userData.nombre}! Realice su reserva`,
                 icon: 'success',
                 showConfirmButton: true,
                 timer: 3000,
               })
               .then(() => {
-                // Redirigir al usuario a otra página después de la alerta
-                window.location = '/reservas/create';
+                
+                navigate('/reservas/create');// Redirigir al usuario a otra página después de la alerta
               });
           } else {
             // Passwords don't match
-            mySwal.fire({
+            MySwal.fire({
               title: 'Error',
               text: 'Contraseña incorrecta',
               icon: 'error',
@@ -56,7 +55,7 @@ export const Login = () => {
         });
       } else {
         // User not found
-        mySwal.fire({
+        MySwal.fire({
           title: 'Error',
           text: 'Usuario no encontrado',
           icon: 'error',
@@ -67,7 +66,6 @@ export const Login = () => {
       console.error('Error fetching user:', error);
     }
   };
-  
     return (
       <div className="container">
         <div>
@@ -76,12 +74,8 @@ export const Login = () => {
         <form onSubmit={login}>
           <div className="input-group mb-3">
             <label className='input-group-text' htmlFor="email">Correo electrónico</label>
-            <input className='form-control'
-              type="email"
-              id="email"
-              name="user"
-              placeholder="ejemplo@email.com"
-              value={email}
+            <input className='form-control' type="email" id="email" name="user"
+              placeholder="ejemplo@email.com" value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
             />

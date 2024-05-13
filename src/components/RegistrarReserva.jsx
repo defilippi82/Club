@@ -1,19 +1,22 @@
 
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { collection, addDoc, Timestamp,query,where, getDocs } from 'firebase/firestore';
 import { db } from '../firebaseConfig/firebase';
+import {useNavigate} from "react-router-dom";
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
+import {UserContext} from "./UserContext";
 
 
 export const RegistrarReserva = () => {
+  const {userData} = useContext(UserContext);
   const [cancha, setCancha] = useState('');
   const [fecha, setFecha] = useState('');
   const [hora, setHora] = useState('');
-  const [nombre, setNombre] = useState('');
+  const [nombre, setNombre] = useState(userData ? userData.nombre : '');
 
   const reservasCollection = collection(db, 'reservas');
-
+  const navigate = useNavigate();
   const MySwal = withReactContent(Swal);
 
   // Definir el rango horario permitido (de 8 am a 11 pm)
@@ -72,7 +75,7 @@ export const RegistrarReserva = () => {
         showConfirmButton: true,
       }).then(() => {
         // Redirigir al usuario a otra página después de la alerta
-        window.location = '/reservas';
+        navigate('/reservas');
       });
 
       // Resetear los campos del formulario
@@ -94,14 +97,14 @@ export const RegistrarReserva = () => {
   // value={fecha ? fecha.toISOString().split('T')[0] : ''} 
   return (
     <div className="container">
-      <div className='card text-bg-primary mb-3 shadow-lg" style="max-width: 18rem;"'>
+      <div className='card text-bg-primary mb-3 shadow-lg style="max-width: 18rem;'>
         <h1 className='card-header'>Registrar Nueva Reserva</h1>
       </div>
       <form onSubmit={handleSubmit} className="card card-body shadow-lg">
         <div className="elem-group">
           
           <div className='form-floating mb-3'>
-            <select class="form-select"
+            <select className="form-select"
             id="cancha"
             value={cancha}
             onChange={(e) => setCancha(e.target.value)}
@@ -114,7 +117,7 @@ export const RegistrarReserva = () => {
             <option value="Futbol 1">Fútbol 1</option>
             <option value="Futbol 2">Fútbol 2</option>
           </select>
-          <label for="floatingSelectDisabled" htmlFor="cancha">Cancha</label>
+          <label htmlFor="floatingSelectDisabled cancha">Cancha</label>
             </div>
         </div>
         <div className="elem-group">
@@ -123,13 +126,12 @@ export const RegistrarReserva = () => {
             type="date"
             id="fecha"
             value={fecha}
-            class="form-control"
             onChange={(e) => setFecha(e.target.value)}
             required
             />
-          <label for="floatingInputDisabled" htmlFor="fecha">Fecha</label>
+          <label htmlFor="floatingInputDisabled fecha">Fecha</label>
             </div>
-          <select class="form-select"
+          <select className="form-select"
             id="hora"
             value={hora}
             onChange={(e) => setHora(e.target.value)}
@@ -150,7 +152,7 @@ export const RegistrarReserva = () => {
             onChange={(e) => setNombre(e.target.value)}
             required
           />
-        <label for="floatingInputDisabled" htmlFor="nombre">Nombre</label>
+        <label htmlFor="floatingInputDisabled nombre">Nombre</label>
         </div>
         <button type="submit" className="btn btn-primary">
           Registrar

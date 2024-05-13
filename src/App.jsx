@@ -1,8 +1,10 @@
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import { useContext, useEffect, useState} from 'react';
+import { BrowserRouter, Routes, Route, Navigate} from "react-router-dom";
 import Container from 'react-bootstrap/Container';
+import Button from 'react-bootstrap/Button';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import NavDropdown from 'react-bootstrap/NavDropdown';
+import { NavbarCollapse } from "react-bootstrap";
 import { Reservas } from "./components/Reservas";
 import { Socios } from "./components/Socios";
 import { Login } from "./components/Login";
@@ -11,25 +13,51 @@ import { RegistrarSocio } from "./components/RegistrarSocio";
 import { EditarReserva } from "./components/EditarReserva";
 import { EditarSocio } from "./components/EditarSocio";
 
+import { UserContext } from './components/UserContext';
+import { UserProvider } from './components/UserContext';
+
+
 export const App = () => {
+  const [userData, setUserData]  = useState(null);
+
+    useEffect(() => {
+    const userDataFromStorage = localStorage.getItem('userData');
+    if (userDataFromStorage) {
+      setUserData(JSON.parse(userDataFromStorage));
+    }
+  }, []);
+  const handleLogout = () => {
+    // Limpiar los datos de usuario al cerrar sesión
+    localStorage.removeItem('userData');
+    setUserData(null);
+    
+  };
+           
   return (
+   
     <div className="App container ">
       <BrowserRouter>
         <header>
-
-          <Navbar expand="lg" className="bg-body-tertiary">
+        <Navbar expand="lg" className="navbar-collapse bg-body-tertiary">
             <Container>
-            <Navbar.Brand href="#home">Club Social</Navbar.Brand>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+            <Navbar.Brand href="/">Club Social  ||  {userData && (<>
+            <span>Hola {userData.nombre}!</span></>)}</Navbar.Brand>
+        <Navbar.Toggle aria-controls="basic-navbar-nav"/>
         <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="me-auto">
             <Nav.Link href="/">Inicio</Nav.Link>
+            {userData && (
+            <>
             <Nav.Link href="/reservas">Reservas</Nav.Link>
             <Nav.Link href="/socios">Socios</Nav.Link>
+            <Button variant="outline-danger" onClick={handleLogout}>Cerrar sesión</Button>
+            </>
+
+              )}
+            
             </Nav>
             </Navbar.Collapse>
-
-</Container>
+            </Container>
           </Navbar>
         </header>
 
@@ -41,8 +69,10 @@ export const App = () => {
           <Route path="/reservas" element={<Reservas />} />
           <Route path="/reservas/create" element={<RegistrarReserva />} />
           <Route path="/reservas/edit/:id" element={<EditarReserva />} />
-        </Routes>
+          {userData ? null : <Route path="*" element={<Navigate to="/" />} />}
+      </Routes>
       </BrowserRouter>
     </div>
+    
   );
 };
