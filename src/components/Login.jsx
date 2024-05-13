@@ -5,29 +5,68 @@ import {Link} from "react-router-dom";
 /* SWEET ALERT*/
 import Swal from "sweetalert2";
 import whitReactContent from "sweetalert2-react-content";
-import { get } from "firebase/database";
+
+import {collection,getDocs,deleteDoc,doc,query,where} from "firebase/firestore";
+import {db} from "../firebaseConfig/firebase";
+
+
 const mySwal = whitReactContent(Swal)
 
 export const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
- 
 
-  const login = (e) => {
-      e.preventDefault();
 
-      // Ejemplo de alerta con SweetAlert2
-      mySwal.fire({
-        title: 'Ingreso exitoso',
-        text: 'Bienvenido realice su reserva',
-        icon: 'success',
-        showConfirmButton: true,
-        timer: 3000,
-      }).then(() => {
-        // Redirigir al usuario a otra página después de la alerta
-        window.location = '/reservas/create';
-      });
-    };
+
+  
+  const login = async (e) => {
+    e.preventDefault();
+  
+    try {
+      // Query Firestore for the user's credentials
+      const q = query(collection(db, "socios"), where('email', '==', email));
+      const querySnapshot = await getDocs(q);
+      if (!querySnapshot.empty) {
+        querySnapshot.forEach((doc) => {
+          const userData = doc.data();
+          console.log(userData)
+          if (userData.contrasena === password) {
+            // Passwords match, login successful
+            mySwal
+              .fire({
+                title: 'Ingreso exitoso',
+                text: `Bienvenido ${email} realice su reserva`,
+                icon: 'success',
+                showConfirmButton: true,
+                timer: 3000,
+              })
+              .then(() => {
+                // Redirigir al usuario a otra página después de la alerta
+                window.location = '/reservas/create';
+              });
+          } else {
+            // Passwords don't match
+            mySwal.fire({
+              title: 'Error',
+              text: 'Contraseña incorrecta',
+              icon: 'error',
+              showConfirmButton: true,
+            });
+          }
+        });
+      } else {
+        // User not found
+        mySwal.fire({
+          title: 'Error',
+          text: 'Usuario no encontrado',
+          icon: 'error',
+          showConfirmButton: true,
+        });
+      }
+    } catch (error) {
+      console.error('Error fetching user:', error);
+    }
+  };
   
     return (
       <div className="container">
