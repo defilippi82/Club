@@ -18,14 +18,15 @@ import { UserProvider } from './components/UserContext';
 
 
 export const App = () => {
+  
   const [userData, setUserData]  = useState(null);
 
-    useEffect(() => {
+  useEffect(() => {
     const userDataFromStorage = localStorage.getItem('userData');
     if (userDataFromStorage) {
       setUserData(JSON.parse(userDataFromStorage));
     }
-  }, []);
+  }, [userData]);
   const handleLogout = () => {
     // Limpiar los datos de usuario al cerrar sesión
     localStorage.removeItem('userData');
@@ -34,22 +35,27 @@ export const App = () => {
   };
            
   return (
-   
+    
     <div className="App container ">
       <BrowserRouter>
+      <UserProvider>
         <header>
         <Navbar expand="lg" className="navbar-collapse bg-body-tertiary">
             <Container>
-            <Navbar.Brand href="/">Club Social  ||  {userData && (<>
+            <Navbar.Brand href="/">Club Social  ||  {userData && userData.nombre && (<>
             <span>Hola {userData.nombre}!</span></>)}</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav"/>
         <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="me-auto">
             <Nav.Link href="/">Inicio</Nav.Link>
-            {userData && (
+            {userData && userData.nombre && userData.administrador && (
             <>
             <Nav.Link href="/reservas">Reservas</Nav.Link>
             <Nav.Link href="/socios">Socios</Nav.Link>
+            </>
+            )}
+            {userData && userData.nombre && (
+              <>
             <Button variant="outline-danger" onClick={handleLogout}>Cerrar sesión</Button>
             </>
 
@@ -71,6 +77,7 @@ export const App = () => {
           <Route path="/reservas/edit/:id" element={<EditarReserva />} />
           {userData ? null : <Route path="*" element={<Navigate to="/" />} />}
       </Routes>
+    </UserProvider>
       </BrowserRouter>
     </div>
     

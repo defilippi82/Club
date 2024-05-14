@@ -37,7 +37,7 @@ export const RegistrarReserva = () => {
 
   const intervalos = generarIntervalos();
 
-  const handleSubmit = async (e) => {
+  const crearReserva = async (e) => {
     e.preventDefault();
 
      // Verificar disponibilidad de la cancha en la fecha y hora seleccionadas
@@ -50,21 +50,19 @@ export const RegistrarReserva = () => {
     if (!querySnapshot.empty) {
       MySwal.fire({
         title: 'Error',
-        text: 'Ya existe una reserva para esta cancha en la fecha y hora seleccionadas',
+        text: 'Ya existe una reserva para esa cancha en la fecha y hora seleccionadas',
         icon: 'error',
         showConfirmButton: true,
       });
       return;
     }
 
-    
-
     try {
       // Agregar nueva reserva a la colección 'reservas' en Firestore
       await addDoc(reservasCollection, {
-        cancha,
+        cancha: cancha,
         fecha: Timestamp.fromDate(new Date(`${fecha}T${hora}`)),
-        nombre,
+        nombre: nombre,
       });
 
       // Mostrar alerta de éxito
@@ -94,13 +92,13 @@ export const RegistrarReserva = () => {
     }
   };
   
-  // value={fecha ? fecha.toISOString().split('T')[0] : ''} 
+ 
   return (
     <div className="container">
       <div className='card text-bg-primary mb-3 shadow-lg style="max-width: 18rem;'>
         <h1 className='card-header'>Registrar Nueva Reserva</h1>
       </div>
-      <form onSubmit={handleSubmit} className="card card-body shadow-lg">
+      <form onSubmit={crearReserva} className="card card-body shadow-lg">
         <div className="elem-group">
           
           <div className='form-floating mb-3'>

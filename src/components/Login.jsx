@@ -31,18 +31,17 @@ export const Login = () => {
           if (userData.contrasena === password) {
             setUserData(userData); // Actualizar userData en el contexto
             localStorage.setItem('userData', JSON.stringify(userData));
-            // Passwords match, login successful
-            MySwal.fire({
+            setUserData(userData);// Esperar a que setUserData se complete
+              MySwal.fire({
                 title: 'Ingreso exitoso',
                 text: `¡Bienvenido, ${userData.nombre}! Realice su reserva`,
                 icon: 'success',
                 showConfirmButton: true,
                 timer: 3000,
-              })
-              .then(() => {
-                
-                navigate('/reservas/create');// Redirigir al usuario a otra página después de la alerta
+              }).then(() => {
+                navigate('/reservas/create');
               });
+              
           } else {
             // Passwords don't match
             MySwal.fire({

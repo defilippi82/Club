@@ -4,19 +4,22 @@ import { collection, addDoc } from 'firebase/firestore';
 import { db } from '../firebaseConfig/firebase';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
+import { useNavigate } from 'react-router-dom';
 
 
 export const RegistrarSocio = () => {
   const [nombre, setNombre] = useState('');
   const [email, setEmail] = useState('');
   const [contrasena, setContrasena] = useState('');
+  const [administrador, setAdministrador] = useState(false)
 
   const auth = getAuth();
   const sociosCollection = collection(db, 'socios');
+  const navigate = useNavigate()
 
   const MySwal = withReactContent(Swal);
 
-  const handleSubmit = async (e) => {
+  const crearSocio = async (e) => {
     e.preventDefault();
    /*
     // Validar la contraseña (mínimo 8 caracteres alfanuméricos)
@@ -33,13 +36,14 @@ export const RegistrarSocio = () => {
 
     try {
       // Crear usuario en Firebase Authentication
-      const { user } = await createUserWithEmailAndPassword(auth, email, contrasena);
+      const { user } = await createUserWithEmailAndPassword(auth, email, contrasena, administrador);
 
       // Agregar datos del usuario a la colección 'socios' en Firestore
       await addDoc(sociosCollection, {
-        nombre,
-        email: user.email,
-        contrasena,
+        nombre: nombre,
+        email: email,
+        contrasena: contrasena,
+        administrador: false
       });
 
       // Mostrar alerta de éxito
@@ -50,9 +54,9 @@ export const RegistrarSocio = () => {
         showConfirmButton: true,
       }).then(() => {
         // Redirigir al usuario a otra página después de la alerta
-        window.location = '/socios';
+        navigate ('/');
       });
-
+      
       // Resetear los campos del formulario
       setNombre('');
       setEmail('');
@@ -73,7 +77,7 @@ export const RegistrarSocio = () => {
        <div className='card text-bg-primary mb-3 shadow-lg" style="max-width: 18rem;"'>
         <h1 className='card-header'>Registrar Nueva Socio</h1>
       </div>
-      <form onSubmit={handleSubmit} className="card card-body shadow-lg">
+      <form onSubmit={crearSocio} className="card card-body shadow-lg">
         <div className="elem-group">
          <div className='form-floating mb-3'>
 

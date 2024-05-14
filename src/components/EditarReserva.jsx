@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "../firebaseConfig/firebase";
 import Swal from 'sweetalert2';
@@ -12,6 +12,7 @@ export const EditarReserva = () => {
   const [hora, setHora] = useState('');
   const [nombre, setNombre] = useState('');
   const MySwal = withReactContent(Swal);
+  const navigate = useNavigate()
 
   // Definir el rango horario permitido (de 8 am a 11 pm)
   const horaInicio = 8;
@@ -45,16 +46,16 @@ export const EditarReserva = () => {
           setFecha(fechaHora.toISOString().split('T')[0]);
           setHora(`${fechaHora.getHours().toString().padStart(2, '0')}:${fechaHora.getMinutes().toString().padStart(2, '0')}`);
         } else {
-          console.log("No such document!");
+          console.log("No Existe!");
         }
       } catch (error) {
-        console.error("Error getting document:", error);
+        console.error("Error al obtener reserva:", error);
       }
     };
     fetchReserva();
   }, [id]);
 
-  const handleSubmit = async (e) => {
+  const editarSubmit = async (e) => {
     e.preventDefault();
     try {
       // Actualizar la reserva en la colección 'reservas' en Firestore
@@ -72,7 +73,7 @@ export const EditarReserva = () => {
         showConfirmButton: true,
       }).then(() => {
         // Redirigir al usuario a otra página después de la alerta
-        window.location = '/reservas';
+        navigate ('/reservas');
       });;
     } catch (error) {
       // Mostrar alerta de error
@@ -90,7 +91,7 @@ export const EditarReserva = () => {
       <div>
         <h1>Editar Reserva</h1>
       </div>
-      <form onSubmit={handleSubmit} className="card card-body shadow-lg">
+      <form onSubmit={editarSubmit} className="card card-body shadow-lg">
         <div className="elem-group">
           <label htmlFor="cancha">Cancha</label>
           <select
