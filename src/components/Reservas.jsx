@@ -1,5 +1,5 @@
 import {useState,useEffect} from "react";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {collection,getDocs,deleteDoc,doc, Timestamp} from "firebase/firestore";
 import {db} from "../firebaseConfig/firebase";
 import{ services } from "../services/Services";
@@ -11,11 +11,12 @@ import { get } from "firebase/database";
 const mySwal = whitReactContent(Swal)
 
 export const Reservas = ()=>{
-
+    
     const [reservas, setReservas] = useState([]);
 
     const reservasCollection = collection(db,"reservas");
-
+    
+    const navigate = useNavigate();
     
     useEffect(()=>{
         const getReservas = async()=>{
@@ -36,13 +37,15 @@ export const Reservas = ()=>{
         try {
             await deleteDoc(doc(db, "reservas", id));
             setReservas(reservas.filter((reserva) => reserva.id !== id));
-            mySwal.fire(
-                "¡Borrado!",
-                "Tu reserva ha sido eliminada.",
-                "success"
-            ).then(() => {
+            mySwal.fire({
+               title: "¡Borrado!",
+               text: "Tu reserva ha sido eliminada.",
+                icon:"success",
+                showConfirmButton: true
+            }).then(() => {
         // Redirigir al usuario a otra página después de la alerta
-        window.location = '/reservas';
+        navigate('/reservas');
+        //window.location = '/reservas';
       });
         } catch (error) {
             mySwal.fire(

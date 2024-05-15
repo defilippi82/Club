@@ -23,7 +23,7 @@ export const Login = () => {
       const querySnapshot = await getDocs(q);
       
     try {
-      // Query Firestore for the user's credentials
+      // Query Firestore para credenciales del usuario
       if (!querySnapshot.empty) {
         querySnapshot.forEach((doc) => {
           const userData = doc.data();
@@ -39,7 +39,8 @@ export const Login = () => {
                 showConfirmButton: true,
                 timer: 3000,
               }).then(() => {
-                navigate('/reservas/create');
+                //navigate('/reservas/create');
+                window.location = '/reservas/create';
               });
               
           } else {

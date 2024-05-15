@@ -32,17 +32,19 @@ export const Socios = ()=>{
         try {
             await deleteDoc(doc(db, "socios", id));
             setSocios(socios.filter((socio) => socio.id !== id));
-            mySwal.fire(
-                "¡Borrado!",
-                "Tu socio ha sido eliminada.",
-                "success"
-            );
+            mySwal.fire({
+
+                title:"¡Borrado!",
+                text:"Tu socio ha sido eliminada.",
+                icon:"success",
+                showConfirmButton: true
+            });
         } catch (error) {
-            mySwal.fire(
-                "Error",
-                "Ha ocurrido un error al intentar borrar la socio.",
-                "error"
-            );
+            mySwal.fire({
+               title: "Error",
+                text:"Ha ocurrido un error al intentar borrar la socio.",
+                icon:"error"
+        });
         }
     };
 
