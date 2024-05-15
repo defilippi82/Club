@@ -71,18 +71,29 @@ export const Login = () => {
         <div>
           <h1>Ingreso de Usuario</h1>
         </div>
+       
+        <div className="row justify-content-center">
+        <div className="col-md-6">
+        <div className="d-flex justify-content-center">
+        <div className="login-key text-center">
+          <i className="fa fa-user-circle fa-10x" aria-hidden="true"></i>
+         </div>
+        </div>
+      </div>
+        </div>
+        
         <form onSubmit={login}>
-          <div className="input-group mb-3">
-            <label className='input-group-text' htmlFor="email">Correo electrónico</label>
-            <input className='form-control' type="email" id="email" name="user"
+          <div className="input-group mx-auto mb-3">
+            <label  className="labels" htmlFor="email">Correo electrónico</label>
+            <input className='form-control no-outline' type="email" id="email" name="user"
               placeholder="ejemplo@email.com" value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
             />
           </div>
-          <div>
-            <label className='input-group-text' htmlFor="password">Contraseña</label>
-            <input className='form-control' type="password"
+          <div className="input-group mx-auto mb-3">
+            <label className="labels" htmlFor="password">Contraseña</label>
+            <input className='form-control no-outline' type="password"
               name="pass"
               id="pass"
               placeholder="********"
@@ -90,13 +101,16 @@ export const Login = () => {
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
+          <div className="buttons">
           <button type="submit" className="btn btn-primary">
             Ingresar
           </button>
+          <Link to ="/socios/create" className="btn btn-primary"> Registrarse </Link>
+          </div>
         </form>
-        <h3>¿No tienes cuenta?</h3>
-        <Link to ="/socios/create" className="btn btn-primary"> Registrarse </Link>
-       
+        
+        
+      
       </div>
     );
 

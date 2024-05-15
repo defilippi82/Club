@@ -1,69 +1,85 @@
-:root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424 ;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  border-radius: 8px;
+  background-color: #3e8ac484;
+  color: #eee;
 }
-
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
-
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
-  background-color: #1a1a1a;
+body{
+  background-image: url("../img/wallpaper.jpeg");
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+  text-align: center;
+  margin-top:20px;
+  margin-bottom: 40px;
+  color: #fff;
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
+
+/*Login */
+
+.login-key{
+  margin-bottom: 40px;
+}
+
+.form-label {
+  font-weight: bold;
+}
+
+.form-control {
+  width: auto;
+  padding: 5px;
+  margin-left: 5px;
+  margin-bottom: 25px;
+  border-radius: 5px !important;
+  background-color: #aecdb4c0;
+  color: #d8e524;
+  
+}
+.input-group{
+  
+  max-width: 500px;
+}
+.labels{
+  width: 150px;
+}
+
+.no-outline:focus {
+  outline: none !important;
+  border-color: #aecdb4c0;
+  box-shadow: none !important;
+}
+
+.btn-primary {
+  display: grid;
+  max-width: 100px;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #008dca;
+  color: white;
+  text-align: center;
   cursor: pointer;
-  transition: border-color 0.25s;
 }
-button:hover {
-  border-color: #646cff;
+.buttons{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap:2em
 }
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+.btn-primary:hover {
+  background-color: #0056b3;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+.btn-link {
+  text-decoration: none;
+  color: #007bff;
+}
+
+.btn-link:hover {
+  text-decoration: underline;
 }
