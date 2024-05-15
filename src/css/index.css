@@ -6,6 +6,7 @@
   background-color: #3e8ac484;
   color: #eee;
 }
+
 body{
   background-image: url("../img/wallpaper.jpeg");
   background-size: cover;
@@ -18,8 +19,23 @@ h1 {
   margin-bottom: 40px;
   color: #fff;
 }
+.navbarbrand{
+ 
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
 
-
+.navlinks{
+  color:rgb(33, 238, 98);
+  font-size: medium;
+  margin-top: 2px;
+  margin-right: 5px;
+}
+.navlinks:hover{
+  color: yellow;
+}
 /*Login */
 
 .login-key{
@@ -48,7 +64,7 @@ h1 {
   width: 150px;
 }
 
-.no-outline:focus {
+no-outline:focus {
   outline: none !important;
   border-color: #aecdb4c0;
   box-shadow: none !important;

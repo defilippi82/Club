@@ -40,23 +40,25 @@ export const App = () => {
       <BrowserRouter>
       <UserProvider>
         <header>
-        <Navbar expand="lg" className="navbar-collapse bg-body-tertiary">
+        <Navbar expand="lg" className="navbar-collapse ">
             <Container>
-            <Navbar.Brand href="/">Club Social  ||  {userData && userData.nombre && (<>
-            <span>Hola {userData.nombre}!</span></>)}</Navbar.Brand>
+            <Navbar.Brand className="navbarbrand" href="/">Club Social{userData && userData.nombre && (<>
+            <>¡Hola {userData.nombre}!</></>)}</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav"/>
         <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="me-auto">
-            <Nav.Link href="/">Inicio</Nav.Link>
+            
             {userData && userData.nombre && userData.administrador && (
             <>
-            <Nav.Link href="/reservas">Reservas</Nav.Link>
-            <Nav.Link href="/socios">Socios</Nav.Link>
+
+            <Nav.Link className='navlinks' href="/">Inicio</Nav.Link>
+            <Nav.Link className='navlinks' href="/reservas">Reservas</Nav.Link>
+            <Nav.Link className='navlinks' href="/socios">Socios</Nav.Link>
             </>
             )}
             {userData && userData.nombre && (
               <>
-            <Button variant="outline-danger" onClick={handleLogout}>Cerrar sesión</Button>
+            <Button variant="outline-danger" onClick={handleLogout}>Salir</Button>
             </>
 
               )}
