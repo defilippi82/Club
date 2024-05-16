@@ -5,6 +5,7 @@
   border-radius: 8px;
   background-color: #3e8ac484;
   color: #eee;
+  
 }
 
 body{
@@ -34,7 +35,7 @@ h1 {
   margin-right: 5px;
 }
 .navlinks:hover{
-  color: yellow;
+  color: rgb(14, 14, 3);
 }
 /*Login */
 
@@ -53,7 +54,7 @@ h1 {
   margin-bottom: 25px;
   border-radius: 5px !important;
   background-color: #aecdb4c0;
-  color: #d8e524;
+  color: #070701;
   
 }
 .input-group{
