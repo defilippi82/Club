@@ -1,10 +1,10 @@
-import { useContext, useEffect, useState} from 'react';
+import { useEffect, useState} from 'react';
 import { BrowserRouter, Routes, Route, Navigate} from "react-router-dom";
 import Container from 'react-bootstrap/Container';
 import Button from 'react-bootstrap/Button';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import { NavbarCollapse } from "react-bootstrap";
+
 import { Reservas } from "./components/Reservas";
 import { Socios } from "./components/Socios";
 import { Login } from "./components/Login";
@@ -20,6 +20,8 @@ import { UserProvider } from './components/UserContext';
 export const App = () => {
   
   const [userData, setUserData]  = useState(null);
+  
+  
 
   useEffect(() => {
     const userDataFromStorage = localStorage.getItem('userData');
@@ -27,11 +29,12 @@ export const App = () => {
       setUserData(JSON.parse(userDataFromStorage));
     }
   }, [userData]);
+  
   const handleLogout = () => {
     // Limpiar los datos de usuario al cerrar sesión
     localStorage.removeItem('userData');
     setUserData(null);
-    
+   
   };
            
   return (
@@ -58,7 +61,7 @@ export const App = () => {
             )}
             {userData && userData.nombre && (
               <>
-            <Button variant="outline-danger" onClick={handleLogout}>Salir</Button>
+            <Button variant="outline-danger" href="/" onClick={ handleLogout}>Salir</Button>
             </>
 
               )}
