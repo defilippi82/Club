@@ -74,12 +74,12 @@ export const App = () => {
 
         <Routes>
           <Route path="/" element={<Login />} />
-          <Route path="/socios" element={<Socios />} />
-          <Route path="/socios/create" element={<RegistrarSocio />} />
-          <Route path="/socios/edit/:id" element={<EditarSocio />} />
-          <Route path="/reservas" element={<Reservas />} />
-          <Route path="/reservas/create" element={<RegistrarReserva />} />
-          <Route path="/reservas/edit/:id" element={<EditarReserva />} />
+          <Route path="#/socios" element={<Socios />} />
+          <Route path="#/socios/create" element={<RegistrarSocio />} />
+          <Route path="#/socios/edit/:id" element={<EditarSocio />} />
+          <Route path="#/reservas" element={<Reservas />} />
+          <Route path="#/reservas/create" element={<RegistrarReserva />} />
+          <Route path="#/reservas/edit/:id" element={<EditarReserva />} />
           {userData ? null : <Route path="*" element={<Navigate to="/" />} />}
       </Routes>
     </UserProvider>
