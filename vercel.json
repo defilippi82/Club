@@ -1,0 +1,9 @@
+{
+    "buildCommand": "next build",
+    
+        "src": "/reirect",
+           
+  
+  
+    "public": true
+  }
