@@ -54,7 +54,7 @@ export const RegistrarSocio = () => {
         showConfirmButton: true,
       }).then(() => {
         // Redirigir al usuario a otra página después de la alerta
-        navigate ('/');
+        navigate ('/#');
       });
       
       // Resetear los campos del formulario

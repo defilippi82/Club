@@ -39,8 +39,8 @@ export const Login = () => {
                 showConfirmButton: true,
                 timer: 3000,
               }).then(() => {
-                //navigate('/reservas/create');
-                window.location = '/reservas/create';
+                navigate('/reservas/create');
+                
               });
               
           } else {
