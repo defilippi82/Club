@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState} from 'react';
-import { HashRouter, BrowserRouter, Routes, Route, Navigate} from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate} from "react-router-dom";
 import Container from 'react-bootstrap/Container';
 import Button from 'react-bootstrap/Button';
 import Nav from 'react-bootstrap/Nav';
@@ -40,7 +40,7 @@ export const App = () => {
   return (
     
     <div className="App container ">
-      <HashRouter>
+      <BrowserRouter>
       <UserProvider>
         <header>
         <Navbar expand="lg" className="navbar-collapse ">
@@ -83,7 +83,7 @@ export const App = () => {
           {userData ? null : <Route path="*" element={<Navigate to="/" />} />}
       </Routes>
     </UserProvider>
-      </HashRouter>
+      </BrowserRouter>
     </div>
     
   );
